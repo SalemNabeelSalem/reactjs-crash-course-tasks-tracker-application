@@ -1,17 +1,47 @@
 import { useState } from "react";
 
+import DatePicker from "react-datepicker";
+
+import "react-datepicker/dist/react-datepicker.css";
+
+import moment from "moment";
+
 const AddTask = (props) => {
   const { onAdd } = props;
 
-  const [title, setTask] = useState("");
-  const [dateTime, setDateTime] = useState("");
+  const [title, setTitle] = useState("");
+  const [dateTime, setDateTime] = useState(new Date());
   const [reminder, setReminder] = useState(false);
 
+  let handleColor = (time) => {
+    return time.getHours() > 12 ? "text-success" : "text-error";
+  };
+
+  const onSubmit = (e) => {
+    // prevent default behavior of form
+    e.preventDefault();
+
+    let formatedDateTime = moment(dateTime).format("MMM Do YYYY h:mm a");
+
+    if (title.trim() === "") {
+      alert("Please enter a task");
+      return;
+    }
+
+    onAdd({
+      title,
+      formatedDateTime,
+      reminder,
+    });
+
+    // reset form
+    setTitle("");
+    setDateTime(new Date());
+    setReminder(false);
+  };
+
   return (
-    <form
-      className="add-form"
-      onSubmit={(e) => onAdd({ title, dateTime, reminder })}
-    >
+    <form className="add-form" onSubmit={onSubmit}>
       <div className="form-control">
         <label htmlFor="title">Title</label>
         <input
@@ -21,12 +51,13 @@ const AddTask = (props) => {
           placeholder="Add a task title"
           value={title}
           onChange={(e) => {
-            setTask(e.target.value);
+            setTitle(e.target.value);
             // console.log(`title: ${e.target.value}`);
           }}
         />
       </div>
 
+      {/*
       <div className="form-control">
         <label htmlFor="day-and-time">Day & Time</label>
         <input
@@ -41,6 +72,21 @@ const AddTask = (props) => {
           }}
         />
       </div>
+      */}
+
+      <DatePicker
+        selected={dateTime}
+        onChange={(date) => {
+          setDateTime(date);
+
+          // console.log(`dateTime: ${date}`);
+        }}
+        showTimeSelect
+        timeClassName={handleColor}
+        dateFormat="yyyy/MM/dd hh:mm aa"
+        timeFormat="hh:mm aa"
+        minDate={new Date()}
+      />
 
       <div className="form-control form-control-check">
         <label htmlFor="reminder">Set Reminder</label>

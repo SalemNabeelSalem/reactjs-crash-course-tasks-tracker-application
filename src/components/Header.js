@@ -3,11 +3,13 @@ import { PropTypes } from "prop-types";
 import Button from "./Button";
 
 const Header = (props) => {
-  const { title } = props;
+  const { title, onAddTask, showAddTask } = props;
 
+  /**
   const onClick = () => {
     console.info("Hello from Header");
   };
+  */
 
   return (
     <header className="header">
@@ -23,7 +25,25 @@ const Header = (props) => {
 
       <h1>{title}</h1>
 
-      <Button color="green" text="Add" onClick={onClick} />
+      {/* {showAddTask ? (
+        <Button
+          color="red"
+          text="Cancel"
+          onClick={() => onAddTask(!showAddTask)}
+        />
+      ) : (
+        <Button
+          color="green"
+          text="Add Task"
+          onClick={() => onAddTask(!showAddTask)}
+        />
+      )} */}
+
+      <Button
+        color={showAddTask ? "red" : "green"}
+        text={showAddTask ? "Cancel" : "Add Task"}
+        onClick={() => onAddTask(!showAddTask)}
+      />
     </header>
   );
 };

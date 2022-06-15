@@ -9,6 +9,8 @@ import Tasks from "./components/Tasks";
 import AddTask from "./components/AddTask";
 
 const App = () => {
+  const [showAddTask, setShowAddTask] = useState(false);
+
   const [tasks, setTasks] = useState([
     {
       id: 1,
@@ -44,8 +46,17 @@ const App = () => {
 
   // add a new task
   const addTask = (task) => {
-    console.log(task);
-  }
+    const id = Math.floor(Math.random() * 10000) + 1;
+
+    const newTask = {
+      id,
+      ...task,
+    };
+
+    console.log(newTask);
+
+    setTasks([...tasks, newTask]);
+  };
 
   // delete task by id
   const deleteTask = (id) => {
@@ -75,13 +86,19 @@ const App = () => {
 
   return (
     <div className="app">
-      <Header title="Tasks Tracker" />
+      <Header
+        title="Tasks Tracker"
+        onAddTask={() => setShowAddTask(!showAddTask)}
+        showAddTask={showAddTask}
+      />
 
       <h3 style={{ color: "blue" }}>
         Double click on a task to toggle its reminder status.
       </h3>
 
-      <AddTask onAdd={addTask} />
+      {showAddTask && <AddTask onAdd={addTask} />}
+
+      {/* <AddTask onAdd={addTask} /> */}
 
       {tasks.length > 0 ? (
         <Tasks
