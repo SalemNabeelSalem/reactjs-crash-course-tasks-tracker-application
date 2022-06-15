@@ -6,6 +6,8 @@ import Header from "./components/Header";
 
 import Tasks from "./components/Tasks";
 
+import AddTask from "./components/AddTask";
+
 const App = () => {
   const [tasks, setTasks] = useState([
     {
@@ -40,6 +42,11 @@ const App = () => {
     },
   ]);
 
+  // add a new task
+  const addTask = (task) => {
+    console.log(task);
+  }
+
   // delete task by id
   const deleteTask = (id) => {
     const newTasks = tasks.filter((task) => task.id !== id);
@@ -73,6 +80,8 @@ const App = () => {
       <h3 style={{ color: "blue" }}>
         Double click on a task to toggle its reminder status.
       </h3>
+
+      <AddTask onAdd={addTask} />
 
       {tasks.length > 0 ? (
         <Tasks
