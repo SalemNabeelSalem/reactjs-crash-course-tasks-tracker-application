@@ -16,7 +16,7 @@ const Task = (props) => {
         />
       </h3>
 
-      <p>{task.dayTime}</p>
+      <p>{task.dateTime}</p>
 
       <p>{task.reminder ? "Reminder" : "No Reminder"}</p>
     </div>
