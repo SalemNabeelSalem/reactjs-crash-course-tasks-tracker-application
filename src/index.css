@@ -4,9 +4,6 @@
   box-sizing: border-box;
   margin: 0;
   padding: 0;
-}
-
-body {
   font-family: 'Poppins', sans-serif;
 }
 
@@ -107,6 +104,12 @@ body {
 .form-control-check input {
   flex: 2;
   height: 20px;
+}
+
+.about {
+  text-align: center;
+  border-bottom: 1px solid steelblue;
+  padding-bottom: 15px;
 }
 
 footer {

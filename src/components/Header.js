@@ -1,5 +1,7 @@
 import { PropTypes } from "prop-types";
 
+import { useLocation } from "react-router-dom";
+
 import Button from "./Button";
 
 const Header = (props) => {
@@ -10,6 +12,8 @@ const Header = (props) => {
     console.info("Hello from Header");
   };
   */
+
+  const location = useLocation();
 
   return (
     <header className="header">
@@ -39,11 +43,13 @@ const Header = (props) => {
         />
       )} */}
 
-      <Button
-        color={showAddTask ? "red" : "green"}
-        text={showAddTask ? "Cancel" : "Add Task"}
-        onClick={() => onAddTask(!showAddTask)}
-      />
+      {location.pathname === "/" ? (
+        <Button
+          color={showAddTask ? "red" : "green"}
+          text={showAddTask ? "Cancel" : "Add Task"}
+          onClick={() => onAddTask(!showAddTask)}
+        />
+      ) : null}
     </header>
   );
 };
