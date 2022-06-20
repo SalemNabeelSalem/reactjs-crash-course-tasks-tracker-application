@@ -19,23 +19,20 @@ const App = () => {
 
   const [tasks, setTasks] = useState([]);
 
-  useEffect(() => {
-    fetchAllTasksAndSetTasksState();
-  });
+  const fetchAllTasks = async () => {
+    const response = await fetch("http://localhost:5000/tasks");
+    const tasks = await response.json();
+    return tasks;
+  };
 
   const fetchAllTasksAndSetTasksState = async () => {
     const tasks = await fetchAllTasks();
-
     setTasks(tasks);
   };
 
-  const fetchAllTasks = async () => {
-    const response = await fetch("http://localhost:5000/tasks");
-
-    const data = await response.json();
-
-    return data;
-  };
+  useEffect(() => {
+    fetchAllTasksAndSetTasksState();
+  });
 
   const addTask = async (task) => {
     // const id = Math.floor(Math.random() * 10000) + 1;
@@ -145,6 +142,8 @@ const App = () => {
             path="/"
             element={
               <>
+                {/* {console.log(`React version: ${React.version}`)} */}
+
                 {showAddTask && <AddTask onAdd={addTask} />}
 
                 {/* <AddTask onAdd={addTask} /> */}
